@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hexo">
+    <title>FFMpeg的使用整理 - Hexo</title>
+    <meta name="author" content="Li Haodong">
+    
+    
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Li Haodong","sameAs":["https://github.com/RitianD","https://www.linkedin.com/in/profile-lihaodong/"],"image":"portrait.jpg"},"articleBody":"content\n\n\n测试标题图片显示是否正常\n\n\n操作环境：WIN10\n\n\n\n\n操作环境：WIN10自用，待分类整理\n一、下载、配置1.打开powershell，输入winget install ffmpeg2.重启powershell并敲ffmpeg查看是否有刷出相关信息；若没有。复制ffmpeg所在目录，添加到系统环境变量中。二、基础命令1.FFMpeg用于操作、转换和流式传输多媒体内容2.FFprobe媒体参数分析工具3.FFplay剪辑的播放器三、转换格式示例1：ffmpeg -i input.mov output.mp4-i 为input的意思-c 为codec，编解码器的意思\n·想维持源视频文件的质量，可使用-qscale 0 参数：\nffmpeg -i input.webm -qscale 0 output.mp4\n检查FFmepg的支持格式列表：ffmpeg -formats\n示例2：ffmpeg -i input.mp4 -vn output.mp3将mp4视频文件转换成MP3音频文件\n示例3：ffmpeg -i input.mp4 -vn -ar 44100 -ac 2 -ab 320 -f mp3 output.mp3-vn 表示已经在输出文件中禁用视频录制-ar 设置输出文件的音频频率。通常使用的值是22050HZ、44100HZ、48000HZ-ac 设置音频通道的数目-ab 表明音频比特率-f   输出文件格式\n示例4：ffmpeg -i input.mp4 -filter:v scale&#x3D;1280:720 -c:a copy output.mp4或 ffmpeg -i input.mp4 -s 1280 * 720 -c:a copy output.mp4将所给定视频文件的分辨率到1280 * 720\n示例5：ffmpeg -i input.mp4 -vf scale&#x3D;1280:-1 -c:v libx264 -preset veryslow -crf 24 output.mp4压缩并减小输出文件的大小\n也可以通过下面的选项来转换编码音频降低比特率，使其更有立体声感，从而减小大小；-ac 2 -c :a aac -strict -2 -b:a 128k\n示例6：ffmpeg -i input.mp3 -ab 128 output.mp3-ab 标志压缩音频文件各种可用的音频比特率列表是：96kbps112kbps128kbps160kbps192kbps256kbps320kbps\n示例7：ffmpeg -i input.mp4 -an output.mp4-an 从一个视频文件移除音频流-vn 同理，表示从媒体文件移除视频流如 ffmpeg -i input.mp4 -vn output.mp3\n示例8：ffmpeg -i input.mp4 -r 1 -f image2 image-%2d.png从视频中提取图像-r 设置帧速度。即每秒提取帧到图像的数字。默认值是25-f 表示输出格式，如图像image-%2d.png 表明想如何命名提取的图像\n参考资料：1.给新手的 20 多个 FFmpeg 命令示例 - 知乎 (zhihu.com)2.03 转换格式（文件格式、封装格式）_哔哩哔哩_bilibili\n","dateCreated":"2023-07-18T23:18:55+08:00","dateModified":"2023-09-04T21:33:35+08:00","datePublished":"2023-07-18T23:18:55+08:00","description":"content\n\n\n测试标题图片显示是否正常","headline":"FFMpeg的使用整理","image":["https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/chair-and-coffee-table.jpg","image-2.png"],"mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/07/18/ffmpeg%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/"},"publisher":{"@type":"Organization","name":"Li Haodong","sameAs":["https://github.com/RitianD","https://www.linkedin.com/in/profile-lihaodong/"],"image":"portrait.jpg","logo":{"@type":"ImageObject","url":"portrait.jpg"}},"url":"http://example.com/2023/07/18/ffmpeg%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/","keywords":"FFMpeg","thumbnailUrl":"https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/chair-and-coffee-table.jpg"}</script>
+    <meta name="description" content="content   测试标题图片显示是否正常">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="FFMpeg的使用整理">
+<meta property="og:url" content="http://example.com/2023/07/18/ffmpeg%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="content   测试标题图片显示是否正常">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-18T15:18:55.485Z">
+<meta property="article:modified_time" content="2023-09-04T13:33:35.246Z">
+<meta property="article:author" content="Li Haodong">
+<meta property="article:tag" content="FFMpeg">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://example.com/assets/images/portrait.jpg"/>
+    
+    
+        <meta property="og:image" content="https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/chair-and-coffee-table.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/chair-and-coffee-table.jpg"/>
+    
+    
+        <meta property="og:image" content="http://example.com/2023/07/18/ffmpeg%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/image-2.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://example.com/2023/07/18/ffmpeg%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/image-2.png"/>
+    
+    
+        
+            <meta property="og:image" content="https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/cup-on-a-table.jpg"/>
+            <meta class="swiftype" name="image" data-type="enum" content="https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/cup-on-a-table.jpg"/>
+        
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-eswd6oynxk1yy8mhobj9yv4qu7ebgekc9riqyex5gvbnanoicvpxphfphdts.min.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQJ033PZ42"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-DQJ033PZ42');
+    </script>
+
+
+    
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Hexo
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/portrait.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/portrait.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Li Haodong</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Try to make this life a great adventure<br> Email:  <a href="mailto:&#97;&#x6e;&#116;&#111;&#110;&#121;&#x31;&#x33;&#x32;&#49;&#x34;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#97;&#x6e;&#116;&#111;&#110;&#121;&#x31;&#x33;&#x32;&#49;&#x34;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;</a></p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="Search"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/RitianD"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/in/profile-lihaodong/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+        <div class="post-header-cover
+                    text-center
+                    post-header-cover--full"
+             style="background-image:url('/2023/07/18/ffmpeg%E7%9A%84%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/image-2.png');"
+             data-behavior="4">
+            
+        </div>
+
+            <div id="main" data-behavior="4"
+                 class="hasCover
+                        hasCoverMetaOut
+                        hasCoverCaption">
+                
+<article class="post">
+    
+        <span class="post-header-cover-caption caption">A beautiful sunrise</span>
+    
+    
+        <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title">
+            FFMpeg的使用整理
+        </h1>
+    
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <div class="alert danger no-icon"><p>content</p>
+</div>
+
+<p>测试标题图片显示是否正常</p>
+<span id="more"></span>
+
+<p>操作环境：WIN10</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+
+
+
+<p>操作环境：WIN10<br>自用，待分类整理</p>
+<p>一、下载、配置<br>1.打开powershell，输入winget install ffmpeg<br>2.重启powershell并敲ffmpeg查看是否有刷出相关信息；<br>若没有。复制ffmpeg所在目录，添加到系统环境变量中。<br>二、基础命令<br>1.FFMpeg<br>用于操作、转换和流式传输多媒体内容<br>2.FFprobe<br>媒体参数分析工具<br>3.FFplay<br>剪辑的播放器<br>三、转换格式<br>示例1：ffmpeg -i input.mov output.mp4<br>-i 为input的意思<br>-c 为codec，编解码器的意思</p>
+<p>·想维持源视频文件的质量，可使用-qscale 0 参数：</p>
+<p>ffmpeg -i input.webm -qscale 0 output.mp4</p>
+<p>检查FFmepg的支持格式列表：<br>ffmpeg -formats</p>
+<p>示例2：ffmpeg -i input.mp4 -vn output.mp3<br>将mp4视频文件转换成MP3音频文件</p>
+<p>示例3：ffmpeg -i input.mp4 -vn -ar 44100 -ac 2 -ab 320 -f mp3 output.mp3<br>-vn 表示已经在输出文件中禁用视频录制<br>-ar 设置输出文件的音频频率。通常使用的值是22050HZ、44100HZ、48000HZ<br>-ac 设置音频通道的数目<br>-ab 表明音频比特率<br>-f   输出文件格式</p>
+<p>示例4：ffmpeg -i input.mp4 -filter:v scale&#x3D;1280:720 -c:a copy output.mp4<br>或 ffmpeg -i input.mp4 -s 1280 * 720 -c:a copy output.mp4<br>将所给定视频文件的分辨率到1280 * 720</p>
+<p>示例5：ffmpeg -i input.mp4 -vf scale&#x3D;1280:-1 -c:v libx264 -preset veryslow -crf 24 output.mp4<br>压缩并减小输出文件的大小</p>
+<p>也可以通过下面的选项来转换编码音频降低比特率，使其更有立体声感，从而减小大小；<br>-ac 2 -c :a aac -strict -2 -b:a 128k</p>
+<p>示例6：ffmpeg -i input.mp3 -ab 128 output.mp3<br>-ab 标志压缩音频文件<br>各种可用的音频比特率列表是：<br>96kbps<br>112kbps<br>128kbps<br>160kbps<br>192kbps<br>256kbps<br>320kbps</p>
+<p>示例7：ffmpeg -i input.mp4 -an output.mp4<br>-an 从一个视频文件移除音频流<br>-vn 同理，表示从媒体文件移除视频流<br>如 ffmpeg -i input.mp4 -vn output.mp3</p>
+<p>示例8：ffmpeg -i input.mp4 -r 1 -f image2 image-%2d.png<br>从视频中提取图像<br>-r 设置帧速度。即每秒提取帧到图像的数字。默认值是25<br>-f 表示输出格式，如图像<br>image-%2d.png 表明想如何命名提取的图像</p>
+<p>参考资料：<br>1.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67878761">给新手的 20 多个 FFmpeg 命令示例 - 知乎 (zhihu.com)</a><br>2.<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Ft411s7Xa/?p=3&vd_source=92d8ebf3e0340b19ac395796cd2765a5">03 转换格式（文件格式、封装格式）_哔哩哔哩_bilibili</a></p>
+
+            
+
+    
+    <div class="image-gallery">
+        <div class="image-gallery-metabar">
+            <span>Gallery: image</span>
+        </div>
+        <div class="image-gallery-photos ">
+            
+            
+            <div class="photo-box">
+                <a
+                    class="photo-box-inner fancybox"
+                    data-fancybox="gallery-clm506dxc0006z4ug9blq9tr8"
+                    data-caption="test2"
+                    title="test2"
+                    target="_blank" rel="noopener" href="https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/cup-on-a-table.jpg"
+                    aria-label=""
+                >
+                    
+
+                        <img
+                                class="photo" src="https://res.cloudinary.com/dayomi5vt/image/upload/v1693829151/samples/cup-on-a-table.jpg"
+                        >
+                    
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/FFMpeg/" rel="tag">FFMpeg</a>
+
+            </div>
+        
+        
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2023 Li Haodong. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/portrait.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Li Haodong</h4>
+        
+            <div id="about-card-bio"><p>Try to make this life a great adventure<br> Email:  <a href="mailto:&#97;&#110;&#x74;&#x6f;&#x6e;&#x79;&#49;&#x33;&#50;&#49;&#x34;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#97;&#110;&#x74;&#x6f;&#x6e;&#x79;&#49;&#x33;&#50;&#49;&#x34;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Software Engineer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Shang Hai
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-qvgszgwobg9fclcrenycdxryuq1gxkk2qq6fmw3up9hy90cb2lrualoxn8v6.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+
+
+
+    </body>
+</html>
